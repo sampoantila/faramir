@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  faramirapi:
+    image: faramirapi
+    build:
+      context: .
+      dockerfile: FaramirAPI/Dockerfile
