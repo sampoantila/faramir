@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaramirUI", "FaramirUI\FaramirUI.csproj", "{B89DF702-9345-4D0B-9450-EA2F2A6D6215}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faramir", "FaramirUI\Faramir.csproj", "{B89DF702-9345-4D0B-9450-EA2F2A6D6215}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaramirAPI", "FaramirAPI\FaramirAPI.csproj", "{96A53F98-EC57-45DF-9CBB-7E3E18567BD4}"
 EndProject
