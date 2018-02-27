@@ -7,32 +7,45 @@ namespace FaramirAPI.Service
 {
     public class BlobStorage
     {
-        private readonly CloudBlobContainer logContainer;
-        private readonly CloudBlobContainer measurementContainer;
-        private CloudBlobClient blobClient;
+        private readonly string connectionString;
 
         public BlobStorage(IConfiguration configuration)
         {
-            // Retrieve storage account from connection string.
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(configuration.GetConnectionString("DefaultConnection"));
-
-            // Create the blob client.
-            blobClient = storageAccount.CreateCloudBlobClient();
-
-            // Retrieve a reference to a container.
-            logContainer = blobClient.GetContainerReference("log");
-
-            // Retrieve a reference to a container.
-            measurementContainer = blobClient.GetContainerReference("measurement");
+            connectionString = configuration.GetConnectionString("measurement");
         }
 
         public CloudAppendBlob CreateLogBlob()
         {
-            return logContainer.GetAppendBlobReference($"log_{DateTime.Now:yyyy-MM-dd_hh:mm:ss.fff}");
+            return CreateLogContainer().GetAppendBlobReference($"log_{DateTime.Now:yyyy-MM-dd_hh:mm:ss.fff}");
         }
         public CloudBlockBlob CreateMeasurementBlob(string prefix)
         {
-            return measurementContainer.GetBlockBlobReference($"{prefix}_{DateTime.Now:yyyy-MM-dd_hh:mm:ss.fff}");
+            return CreateMeasurementContainer().GetBlockBlobReference($"{prefix}_{DateTime.Now:yyyy-MM-dd_hh:mm:ss.fff}");
+        }
+
+        private CloudBlobContainer CreateLogContainer()
+        {
+            var client = CreateBlobClient();
+
+            // Retrieve a reference to a container.
+            return client.GetContainerReference("log");
+        }
+
+        private CloudBlobClient CreateBlobClient()
+        {
+            // Retrieve storage account from connection string.
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+
+            // Create the blob client.
+            return storageAccount.CreateCloudBlobClient();
+        }
+
+        private CloudBlobContainer CreateMeasurementContainer()
+        {
+            var client = CreateBlobClient();
+
+            // Retrieve a reference to a container.
+            return client.GetContainerReference("measurement");
         }
     }
 }

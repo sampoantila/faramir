@@ -33,7 +33,7 @@ namespace FaramirAPI.Controllers
         
         // POST: api/Temp
         [HttpPost]
-        public void Post([FromBody]string value, int point)
+        public void Post(string value, int point)
         {
             var blob = Storage.CreateMeasurementBlob("temp");
 
